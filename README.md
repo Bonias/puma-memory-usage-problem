@@ -93,7 +93,7 @@ Output:
     Request #19: 3806228 kB > 3883316 kB > 3901796 kB > 3892744 kB > 3893796 kB > 3893796 kB > 3893796 kB > 3893796 kB > 3893796 kB > 3893796 kB >
     Request #20: 3992796 kB > 4069816 kB > 4069816 kB > 4069816 kB > 4069816 kB > 4069816 kB > 4069816 kB > 4069816 kB > 4069816 kB > 4069816 kB >
 
-## I tried this recreate this without puma (just plain ruby threads)
+## I tried recreate this without puma (just plain ruby threads)
 
     ruby -r./app.rb -e "20.times { Thread.new { App.call(nil) }.join }"
 
