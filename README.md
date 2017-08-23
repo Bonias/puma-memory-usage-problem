@@ -120,3 +120,17 @@ but without success:
     Request #18: 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB >
     Request #19: 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB >
     Request #20: 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB > 546624 kB >
+
+## And then I tried to not allow threads die after the job is done:
+
+    ruby -r./app.rb -e "threads = 5.times.map { t = Thread.new { App.call(nil); sleep(100) }; sleep(10); t }.map(&:join); App.call(nil)"
+
+And memory consumption is similar to the puma examples:
+
+    Initial memory usage: 9000 kB
+    Request #1: 174944 kB > 203224 kB > 212632 kB > 327388 kB > 303420 kB > 303420 kB > 304472 kB > 304472 kB > 335292 kB > 356660 kB >
+    Request #2: 478212 kB > 489820 kB > 566576 kB > 641348 kB > 656260 kB > 671496 kB > 671496 kB > 671496 kB > 671496 kB > 671496 kB >
+    Request #3: 770412 kB > 790204 kB > 946400 kB > 962628 kB > 962628 kB > 962628 kB > 962628 kB > 962628 kB > 980568 kB > 980568 kB >
+    Request #4: 1071816 kB > 1235480 kB > 1257904 kB > 1257904 kB > 1257904 kB > 1257904 kB > 1257904 kB > 1267604 kB > 1284424 kB > 1338528 kB >
+    Request #5: 1437444 kB > 1451828 kB > 1608364 kB > 1626440 kB > 1626440 kB > 1627232 kB > 1640688 kB > 1640688 kB > 1631504 kB > 1631504 kB >
+    Request #6: 1710736 kB > 1734488 kB > 1762268 kB > 1762268 kB > 1895580 kB > 1960516 kB > 1969024 kB > 1969024 kB > 1969024 kB > 1969024 kB >
