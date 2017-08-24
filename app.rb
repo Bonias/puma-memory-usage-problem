@@ -1,6 +1,7 @@
-require 'json'
-
 class App
+  A = 'a'.freeze
+  LONG_STRING = ENV['LONG_STRING'] == 'true'
+
   @@request_number = 0
 
   def self.call(env)
@@ -10,7 +11,12 @@ class App
 
     print "Request ##{@@request_number += 1}: "
     10.times do |i|
-      JSON.parse(File.read('file.json'))
+      if LONG_STRING
+        A * (1024 * 1024 * 50) # 50 MB
+      else
+        10_000.times.map { |i| A * i } # about 50 MB
+      end
+
       print "#{memory_usage} > "
     end
     puts
